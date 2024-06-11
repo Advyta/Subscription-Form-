@@ -6,19 +6,41 @@ import Link from 'next/link';
 import { addOns, plans } from '../ui/billingdata';
 import Actions from '../components/actions';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+import axios from 'axios';
 
 export default function FinishingUp() {
   const route = useRouter()
-  const { billingType, selectedAddOns, selectedPlan, personalInfoFilled } = useBilling();
+  const { billingType, selectedAddOns, selectedPlan, personalInfoFilled, personalInfo } = useBilling();
   const planCost = billingType === 'Monthly' ? plans[selectedPlan].monthlyCost : plans[selectedPlan].yearlyCost;
   const selectedAddOnsDetails = Object.values(addOns).filter(addOn => selectedAddOns[addOn.id]);
   const addOnsCost = selectedAddOnsDetails.reduce((total, addOn) => total + (billingType === 'Monthly' ? addOn.monthlyCost : addOn.yearlyCost), 0)
   const totalCost = planCost + addOnsCost;
 
-  const nextPage = () => {
-    personalInfoFilled === true 
-    ? route.push('/thankyou')
-    : route.push('/personal-info');
+  const nextPage = async () => {
+    if (personalInfoFilled) {
+
+      try {
+        const response = await axios.post('/api/subscriptions', {
+          ...personalInfo,
+          selectedPlan,
+          billingType,
+          selectedAddOns: Object.entries(selectedAddOns)
+          .filter(([_, isSelected]) => isSelected)
+          .map((key, _) => key)
+        })
+
+        if (response.data.success) {
+          route.push('/thankyou')
+        }
+
+      } catch (error: any) {
+        toast.error(error.message)
+      }
+
+    } else {
+      route.push('/personal-info');
+    }
   }
 
   return (
