@@ -1,5 +1,24 @@
 import mongoose from "mongoose";
 
+const addOnSchema = new mongoose.Schema({
+  id: {
+    type: String,
+    required: true
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  monthlyCost: {
+    type: Number,
+    required: true
+  },
+  yearlyCost: {
+    type: Number,
+    required: true
+  }
+}, { _id: false });
+
 const subscriptionSchema  = new mongoose.Schema({
   name:{
     type: String,
@@ -18,14 +37,18 @@ const subscriptionSchema  = new mongoose.Schema({
     type: String,
     required: true
   },
+  planCost:{
+    type: Number,
+    required: true
+  },
   billingType:{
     type: String,
     required: true
   },
-  selectedAddons:{
-    type: [String],
-    required: true
-  },
+  // selectedAddOnsDetails:{
+  //   type:[addOnSchema],
+  //   required: true
+  // },
 })
 
 const Subscription = mongoose.models.Subscription || mongoose.model('Subscription', subscriptionSchema );

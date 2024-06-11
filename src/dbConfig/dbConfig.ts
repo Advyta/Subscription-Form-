@@ -10,7 +10,7 @@ export async function connect() {
     }
 
     await mongoose.connect(uri);
-    // console.log(uri);
+    console.log(uri);
     const connection = mongoose.connection;
 
     connection.on('connected', () => {
@@ -23,7 +23,6 @@ export async function connect() {
     })
 
   } catch (error) {
-    console.log('Something went wrong');
-    console.log(error);
+    console.log('Error connecting to MongoDB:', error);
   }
 }

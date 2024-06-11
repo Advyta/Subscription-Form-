@@ -21,14 +21,18 @@ export default function FinishingUp() {
     if (personalInfoFilled) {
 
       try {
-        const response = await axios.post('/api/subscriptions', {
+        const data = {
           ...personalInfo,
           selectedPlan,
+          planCost,
           billingType,
-          selectedAddOns: Object.entries(selectedAddOns)
-          .filter(([_, isSelected]) => isSelected)
-          .map((key, _) => key)
-        })
+          // selectedAddOnsDetails
+        }
+
+        console.log('Date to be sent: ', data);
+
+        const response = await axios.post('/api/subscriptions', data);
+        console.log(response.data)
 
         if (response.data.success) {
           route.push('/thankyou')

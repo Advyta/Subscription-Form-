@@ -36,7 +36,7 @@ Additional personal challenge
 
 ### Links
 
-- Solution URL: [Multi-step-form-nextjs](https://github.com/Advyta/Multi-step-form-nextjs/tree/main)
+- Solution URL: [Multi-step-form-nextjs](https://github.com/Advyta/Subscription-Form)
 - Live Site URL: [Live site URL](https://multi-step-form-nextjs-fr6n34mxh-advytas-projects.vercel.app/personal-info)
 
 ## My process

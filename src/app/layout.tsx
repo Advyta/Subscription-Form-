@@ -16,9 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full">
-      <head>
+      {/* <head>
         <link rel="icon" href="../../public/images/favicon-32x32.png" sizes="any" />
-      </head>
+      </head> */}
       <BillingProvider>
         <body className={`lg:h-full bg-magnolia ${ubuntu.className} flex flex-col justify-center items-center`}>
           
