@@ -1,6 +1,7 @@
 import { connect } from "@/dbConfig/dbConfig";
 import { NextRequest, NextResponse } from "next/server";
-import Subscription from '@/models/subscriptionModel'
+import Subscription from '@/models/subscribtionModel';
+import jwt from "jsonwebtoken";
 
 connect();
 
@@ -12,11 +13,11 @@ export async function POST(request: NextRequest) {
       name,
       email,
       phoneNo,
-      selectedPlan, 
-      billingType, 
-      // selectedAddOnsDetails 
+      selectedPlan,
+      planCost,
+      billingType,
+      addonsDetails
     } = reqBody;
-    console.log('Received data:', reqBody);
 
     // Check if subscription already exists
     const existingSubscription = await Subscription.findOne({ email });
@@ -32,26 +33,26 @@ export async function POST(request: NextRequest) {
       email,
       phoneNo,
       selectedPlan,
+      planCost,
       billingType,
-      // selectedAddOnsDetails 
+      addonsDetails
     });
 
     const savedSubscription = await newSubscription.save();
 
-    console.log('Subscription saved:', savedSubscription);
+    const token = jwt.sign({ email }, process.env.TOKEN_SECRET!, { expiresIn: "1h" })
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       message: "Subscription created successfully",
       success: true,
       subscription: savedSubscription
     });
 
-  } catch (error: any) {
-    // if (error.name === 'ValidationError') {
-    //   console.error('Mongoose validation error:', error.message);
-    //   return NextResponse.json({ error: error.message }, { status: 400 });
-    // }
+    response.cookies.set("token", token, { httpOnly: true });
 
+    return response;
+
+  } catch (error: any) {
     console.error('Error: ', error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

@@ -4,13 +4,15 @@ import mongoose from "mongoose";
 
 export async function connect() {
   try {
+    if (mongoose.connections[0].readyState) return;
     const uri = process.env.MONGO_URI!;
+
     if (!uri) {
       throw new Error('URI is not defined in the env variables')
     }
 
     await mongoose.connect(uri);
-    console.log(uri);
+    console.log('mongoose connected');
     const connection = mongoose.connection;
 
     connection.on('connected', () => {

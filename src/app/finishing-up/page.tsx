@@ -16,6 +16,16 @@ export default function FinishingUp() {
   const selectedAddOnsDetails = Object.values(addOns).filter(addOn => selectedAddOns[addOn.id]);
   const addOnsCost = selectedAddOnsDetails.reduce((total, addOn) => total + (billingType === 'Monthly' ? addOn.monthlyCost : addOn.yearlyCost), 0)
   const totalCost = planCost + addOnsCost;
+  
+  const addonsDetails: {
+    name: string;
+    description: string;
+    cost: Number
+  }[] = selectedAddOnsDetails.map(addOn => ({
+    name: addOn.name,
+    description: addOn.description,
+    cost: billingType === 'Monthly' ? addOn.monthlyCost : addOn.yearlyCost
+  }));
 
   const nextPage = async () => {
     if (personalInfoFilled) {
@@ -26,13 +36,10 @@ export default function FinishingUp() {
           selectedPlan,
           planCost,
           billingType,
-          // selectedAddOnsDetails
+          addonsDetails
         }
 
-        console.log('Date to be sent: ', data);
-
         const response = await axios.post('/api/subscriptions', data);
-        console.log(response.data)
 
         if (response.data.success) {
           route.push('/thankyou')
