@@ -36,7 +36,8 @@ export default function FinishingUp() {
           selectedPlan,
           planCost,
           billingType,
-          addonsDetails
+          addonsDetails,
+          totalCost
         }
 
         const response = await axios.post('/api/subscriptions', data);

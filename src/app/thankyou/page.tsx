@@ -11,7 +11,7 @@ export default function ThankYou() {
       </h1>
       <p className="text-cool-gray text-center mt-4 px-2 lg:px-0">
         Thanks for confirming your subscription! We hope you have fun using our
-        platform. If you ever need support, please feel free to email us at
+        platform. You will recieve all of your subscription details on your email Id. If you ever need support, please feel free to email us at
         support@loremgaming.com.
       </p>
     </section>

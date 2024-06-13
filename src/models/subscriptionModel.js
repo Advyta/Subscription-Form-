@@ -33,6 +33,10 @@ const subscriptionSchema = new mongoose.Schema({
       cost: Number
     }],
     required: true
+  },
+  totalCost:{
+    type: Number,
+    required: true
   }
 });
 
