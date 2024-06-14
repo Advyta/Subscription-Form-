@@ -18,19 +18,19 @@ export default function ThankYou() {
     try {
       const subscriberEmail = personalInfo.email;
       const response = await axios.delete('/api/thankyou', { data: { email: subscriberEmail } });
-      console.log(response.data);
+      // console.log(response.data);
       const response1 = await axios.delete('/api/delete-token');
-      console.log(response1.data);
+      // console.log(response1.data);
 
       if (response.data.message === "Subscription and token deleted successfully") {
         // Log cookies before deletion
-        console.log('Cookies before deletion: ' + document.cookie);
+        // console.log('Cookies before deletion: ' + document.cookie);
 
         // Delete token from client-side
-        // document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=http://localhost:3000;";
-        console.log('document.cookie after deletion: ' + document.cookie);
 
-        console.log('Redirecting to /personal-info');
+        // console.log('document.cookie after deletion: ' + document.cookie);
+
+        // console.log('Redirecting to /personal-info');
         setOpen(false);
         router.push('/personal-info');
 

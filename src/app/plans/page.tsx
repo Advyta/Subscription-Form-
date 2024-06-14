@@ -19,7 +19,7 @@ export default function Plans() {
   // Setting cost wrt billing type from the context
   const [cost, setCost] = useState<number>(billingType === 'Monthly' ? plans[selectedPlan].monthlyCost : plans[selectedPlan].yearlyCost);
 
-  console.log(cost);
+  // console.log(cost);
 
   // /Is updated everytime there is a change in billing type
   useEffect(() => {

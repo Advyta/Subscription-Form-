@@ -23,8 +23,8 @@ export async function DELETE(request: NextRequest) {
       console.log('Subscription not found');
       return NextResponse.json({ error: "Subscription not found" }, { status: 404 })
     }
-
     console.log('Subscription deleted successfully');
+    
     // delete token
     deleteToken(response);
 
