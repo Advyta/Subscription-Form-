@@ -7,6 +7,10 @@ This is a solution to the [Multi-step form challenge on Frontend Mentor](https:/
 - [Overview](#overview)
   - [The challenge](#the-challenge)
   - [Links](#links)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Running the Project](#running-the-project)
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
@@ -30,14 +34,53 @@ Users should be able to:
   - The email address is not formatted correctly
   - A step is submitted, but no selection has been made
 
-Additional personal challenge
-- Store a users information including the selected plans and add ons
-- Send an email on the user's email Id confirming subscription and details of the selected plans and addons
+Additional personal challenge:
+
+- Store a subscriber's information including the selected plans and add ons on mongoDB.
+- Send an email on the user's email Id confirming subscription and details of the selected plans and addons (using nodemailer and mailtrap).
+- Delete all the information of a subscriber when they unsubscribe.
 
 ### Links
 
 - Solution URL: [Multi-step-form-nextjs](https://github.com/Advyta/Subscription-Form)
-- Live Site URL: [Live site URL](https://multi-step-form-nextjs-fr6n34mxh-advytas-projects.vercel.app/personal-info)
+- Live Site URL: [Live site URL]()
+
+## Getting Started
+
+### Prerequisites
+
+Before you begin, ensure you have the following installed:
+- Node.js (version 14 or higher)
+- npm (version 6 or higher)
+- MongoDB (local or cloud instance)
+
+### Installation
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/Advyta/Subscription-Form.git
+    cd Subscription-Form
+    ```
+2. Install dependencies:
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+### Running the Application
+
+1. Create a .env.local file in the root directory and add your environment variables:
+```env
+    TOKEN_SECRET=your_jwt_secret
+    MONGODB_URI=your_mongodb_connection_string
+    MAILER_USER=your_user_from_mailtrap
+    MAILER_PASSWORD=your_password_from_mailtrap
+```
+1. Start the development server:
+```bash
+    npm run dev
+```
+The application will be available at http://localhost:3000.
 
 ## My process
 
@@ -46,26 +89,36 @@ Additional personal challenge
 - Nextjs 14
 - Tailwind css
 - Typescript
-- Mobile-first workflow
+- React Hook Form
+- Mongoose
+- Nodemailer and Mailtrap
 
 ### What I learned
 
-I have learnt basics of NextJs and practiced typescript and tailwind css in more detail. 
-I got a better grasp on context api.
+- Deepened my understanding of Next.js and its features
+- Enhanced my TypeScript skills
+- Improved my ability to manage state using Context API
+- Gained experience in form validation with React Hook Form
 
 ### Continued development
 
-I will continue to bulid a simple backend for this project using MongoDB. I want to understand the use of middleware, tokens, cookies and basics of MongoDB. In this project, I want to be able to:
-1. Store a users information including the selected plans and add ons
-2. Send an email on the user's email Id confirming subscription and details of the selected plans and addons
+I plan to extend this project by:
+- Adding an more robost form validation
+- Using react hot toast to keep the user updated
+- Adding unit tests and integration tests for testing components and API routes to ensure the functionality is as expected.
 
 ### Useful resources
 
 - [Start building with Next.js](https://nextjs.org/learn?utm_source=next-site&utm_medium=homepage-cta&utm_campaign=home) - This helped me learn basics of Nextjs and understand key concepts and folder structure
 - [Complete Nextjs fullstack Authentication course](https://youtu.be/eaQc7vbV4po?si=TwOwy7ZXwf_mGXcJ) - Good tutorial to understand basics of Nextjs and intro to MongoDB
-- [Chat GPT](https://chatgpt.com/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs/installation) - For Tailwind CSS and Modal Dialogs template
+- ChatGPT: [AskTheCode - Git Companion](https://chatgpt.com/g/g-3s6SJ5V7S-askthecode-git-companion)
 - [Microsoft Copilot](https://www.bing.com/chat?q=Bing%20AI&qs=ds&form=NTPCHB)
 
 ## Author
 
 - Frontend Mentor - [@Advyta](https://www.frontendmentor.io/profile/Advyta)
+
+## Acknowledgments
+ 
+- [Frontend Mentor](https://www.frontendmentor.io/challenges/multistep-form-YVAnSdqQBJ) for the challenge.
