@@ -20,6 +20,7 @@ export const deleteToken = (response: NextResponse) => {
       expires: new Date(0), // Set the expiry date to the past to delete the cookie
       path: '/',
     });
+    console.log('deleteToken: ' + response)
     return response;
   } catch (error: any) {
     throw new Error(error.message);

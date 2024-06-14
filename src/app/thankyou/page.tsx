@@ -1,9 +1,8 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image';
 import thankyou from '../../../public/images/icon-thank-you.svg'
-import { Fragment, useState } from 'react'
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react'
 import { useRouter } from 'next/navigation';
 import { useBilling } from '../components/BillingContext';
@@ -13,17 +12,28 @@ import axios from 'axios';
 export default function ThankYou() {
   const [open, setOpen] = useState(false);
   const { personalInfo } = useBilling();
-  const route = useRouter();
+  const router = useRouter();
 
   const handleUnsubscribe = async () => {
     try {
       const subscriberEmail = personalInfo.email;
       const response = await axios.delete('/api/thankyou', { data: { email: subscriberEmail } });
-      console.log(response.data.message);
+      console.log(response.data);
+      const response1 = await axios.delete('/api/delete-token');
+      console.log(response1.data);
 
       if (response.data.message === "Subscription and token deleted successfully") {
-        // Redirect to personal-info page after token deletion
-        route.push('/personal-info');
+        // Log cookies before deletion
+        console.log('Cookies before deletion: ' + document.cookie);
+
+        // Delete token from client-side
+        // document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=http://localhost:3000;";
+        console.log('document.cookie after deletion: ' + document.cookie);
+
+        console.log('Redirecting to /personal-info');
+        setOpen(false);
+        router.push('/personal-info');
+
       } else {
         console.log(response.data.error);
       }
@@ -82,7 +92,7 @@ export default function ThankYou() {
                         </DialogTitle>
                         <div className="mt-2">
                           <p className="text-sm text-gray-500">
-                            Are you sure you want to unsubscripe? All of your data will be permanently
+                            Are you sure you want to unsubscribe? All of your data will be permanently
                             removed. This action cannot be undone.
                           </p>
                         </div>

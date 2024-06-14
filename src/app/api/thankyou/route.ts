@@ -1,5 +1,6 @@
 import { deleteToken } from "@/helpers/subscribtionTokens";
 import Subscription from "@/models/subscriptionModel";
+import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(request: NextRequest) {
@@ -11,8 +12,10 @@ export async function DELETE(request: NextRequest) {
 
     if (!email) {
       console.log('Email is required');
-      return NextResponse.json({ error: "Email is required" }, { status: 400 });
+      return NextResponse.json({ error: "email not found" }, { status: 404 })
     }
+
+    //Deleting subscription
     const deleteSubscription = await Subscription.findOneAndDelete({ email });
     console.log('Deleted Subscription:', deleteSubscription);
 
@@ -22,8 +25,12 @@ export async function DELETE(request: NextRequest) {
     }
 
     console.log('Subscription deleted successfully');
-    //delete token
+    // delete token
     deleteToken(response);
+
+    // Set cache control headers
+    response.headers.set('Cache-Control', 'no-store, must-revalidate');
+    response.headers.set('Expires', '0');
     return NextResponse.json({ message: "Subscription and token deleted successfully" });
 
   } catch (error: any) {
