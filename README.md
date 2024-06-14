@@ -43,7 +43,7 @@ Additional personal challenge:
 ### Links
 
 - Solution URL: [Multi-step-form-nextjs](https://github.com/Advyta/Subscription-Form)
-- Live Site URL: [Live site URL]()
+- Live Site URL: [Live site URL](https://subscription-form-sand.vercel.app/personal-info)
 
 ## Getting Started
 
@@ -70,16 +70,16 @@ Before you begin, ensure you have the following installed:
 ### Running the Application
 
 1. Create a .env.local file in the root directory and add your environment variables:
-```env
+    ```env
     TOKEN_SECRET=your_jwt_secret
-    MONGODB_URI=your_mongodb_connection_string
+    MONGO_URI=your_mongodb_connection_string
     MAILER_USER=your_user_from_mailtrap
     MAILER_PASSWORD=your_password_from_mailtrap
-```
+    ```
 1. Start the development server:
-```bash
+    ```bash
     npm run dev
-```
+    ```
 The application will be available at http://localhost:3000.
 
 ## My process
@@ -106,6 +106,7 @@ I plan to extend this project by:
 - Adding an more robost form validation
 - Using react hot toast to keep the user updated
 - Adding unit tests and integration tests for testing components and API routes to ensure the functionality is as expected.
+- Improve the email sent to the subscriber and include the unsubscribe option in the email itself.
 
 ### Useful resources
 
