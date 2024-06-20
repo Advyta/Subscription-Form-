@@ -11,8 +11,8 @@ export default function PersonalInfo() {
   const router = useRouter();
 
   // defining form actions
-  const {setPersonalInfoFilled, personalInfo, setPersonalInfo} = useBilling();
-  const { register, handleSubmit, formState: { errors } } = useForm<inputs>({defaultValues: personalInfo});
+  const { setPersonalInfoFilled, personalInfo, setPersonalInfo } = useBilling();
+  const { register, handleSubmit, formState: { errors } } = useForm<inputs>({ defaultValues: personalInfo });
 
   const onSubmit: SubmitHandler<inputs> = (data) => {
     setPersonalInfoFilled(true);
@@ -60,7 +60,7 @@ export default function PersonalInfo() {
               {errors.email?.message}
             </span>
           </div>
-          <input type="text"
+          <input type="email"
             placeholder="e.g. stephenking@lorem.com"
             className={clsx(
               'border',
@@ -88,7 +88,7 @@ export default function PersonalInfo() {
               {errors.phoneNo?.message}
             </span>
           </div>
-          <input type="text"
+          <input type="tel" id='tel'
             placeholder="e.g. +1 234 567 890"
             className={clsx(
               'border',

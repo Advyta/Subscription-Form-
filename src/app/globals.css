@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@media (max-height: 620px) {
+  .next-step-bar {
+    position: static; /* Remove fixed positioning */
+    width: 100%;
+    box-shadow: none;
+    background-color: transparent;
+  }
+}
