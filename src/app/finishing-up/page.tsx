@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { addOns, plans } from '../ui/billingdata';
 import Actions from '../components/actions';
 import { useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 
 export default function FinishingUp() {
@@ -29,7 +29,7 @@ export default function FinishingUp() {
 
   const nextPage = async () => {
     if (personalInfoFilled) {
-
+      const loadingToast = toast.loading('Confirming subscription...');
       try {
         const data = {
           ...personalInfo,
@@ -43,11 +43,13 @@ export default function FinishingUp() {
         const response = await axios.post('/api/subscriptions', data);
 
         if (response.data.success) {
+          toast.dismiss(loadingToast);
           route.push('/thankyou')
         }
 
       } catch (error: any) {
         toast.error(error.message)
+        toast.dismiss(loadingToast);
       }
 
     } else {
@@ -57,6 +59,7 @@ export default function FinishingUp() {
 
   return (
     <section>
+      <Toaster />
       <PageHeadings heading={'Finishing up'} discription={'Double-check everything looks OK before confirming.'} />
 
       <div className="flex flex-col lg:mt-16 mt-10 w-full bg-alabaster rounded-lg px-4 lg:px-6">

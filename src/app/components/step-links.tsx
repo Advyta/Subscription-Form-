@@ -1,8 +1,9 @@
 'use client'
 import React from 'react';
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import clsx from 'clsx';
+import { useBilling } from './BillingContext';
+import toast, { Toaster } from 'react-hot-toast';
 
 const links = [
   { name: 'Your Info', href: '/personal-info', pageNo: 1 },
@@ -13,21 +14,33 @@ const links = [
 
 export default function StepLinks() {
   const pathname = usePathname();
+  const {personalInfoFilled} = useBilling();
+  const router = useRouter();
+
+  const selectStep = (stepPath: string) => {
+    if (personalInfoFilled) {
+      router.push(stepPath);
+    } else {
+      toast.error('Please enter your personal information and press Save')
+    }
+  }
 
   return (
     <div className='flex flex-row lg:flex-col gap-4 lg:gap-6'>
       {links.map((link) => (
-        <Link
+        <button
           key={link.pageNo}
-          href={link.href}>
+          // href={link.href}
+          onClick={() => selectStep(link.href)}
+          >
           <div className="flex items-center gap-4 group">
-            <button className={clsx(
-              'w-[33px] h-[33px] rounded-full border transition-colors duration-300  text-center align-middle group-hover:bg-[#bfe2fd80] group-hover:text-marine-blue',
+            <div className={clsx(
+              'w-[33px] h-[33px] rounded-full border transition-colors duration-300 pt-1 text-center align-middle group-hover:bg-[#bfe2fd80] group-hover:text-marine-blue',
               { 'bg-light-blue text-marine-blue border-transparent': pathname === link.href, 'text-white bg-transparent border-white': pathname !== link.href }
             )}>
               {link.pageNo}
-            </button>
-            <div className="hidden lg:flex flex-col uppercase">
+            </div>
+            <div className="hidden lg:flex flex-col uppercase text-left">
               <h3 className={clsx('font-normal text-[13px] text-cool-gray group-hover:text-[#dce0fb]')}>
                 Step {link.pageNo}
               </h3>
@@ -39,8 +52,9 @@ export default function StepLinks() {
               </h2>
             </div>
           </div>
-        </Link>
+        </button>
       ))}
+      <Toaster position="top-right" />
     </div>
   )
 }

@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import PageHeadings from '../components/page-headings';
 import clsx from 'clsx';
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -12,7 +12,12 @@ export default function PersonalInfo() {
 
   // defining form actions
   const { setPersonalInfoFilled, personalInfo, setPersonalInfo } = useBilling();
-  const { register, handleSubmit, formState: { errors } } = useForm<inputs>({ defaultValues: personalInfo });
+  const { register, handleSubmit, formState: { errors }, setFocus } = useForm<inputs>({ defaultValues: personalInfo });
+
+
+  useEffect(() => {
+    setFocus('name');
+  }, [setFocus]);
 
   const onSubmit: SubmitHandler<inputs> = (data) => {
     setPersonalInfoFilled(true);
@@ -35,23 +40,23 @@ export default function PersonalInfo() {
               {errors.name?.message}
             </span>
           </div>
-          <input type="text"
-            placeholder="e.g. Stephen King"
-            className={clsx(
-              'border py-2 lg:py-3 px-3 lg:px-4 rounded-[4px] lg:rounded-lg mt-1 text-[15px] lg:text-base text-marine-blue placeholder:text-cool-gray font-medium lg:font-bold focus:outline-none',
-              errors.name ? 'border-strawberry-red' : 'border-light-gray focus:border-purplish-blue',
-            )}
-            {...register("name", {
-              required: "This field is required",
-              maxLength: {
-                value: 25,
-                message: 'Name must be less than 25 characters'
-              }
-            })}
-          />
         </label>
+        <input type="text"
+          placeholder="e.g. Stephen King"
+          className={clsx(
+            'border py-2 lg:py-3 px-3 lg:px-4 rounded-[4px] lg:rounded-lg mt-1 text-[15px] lg:text-base text-marine-blue placeholder:text-cool-gray font-medium lg:font-bold focus:outline-none',
+            errors.name ? 'border-strawberry-red' : 'border-light-gray focus:border-purplish-blue',
+          )}
+          {...register("name", {
+            required: "This field is required",
+            maxLength: {
+              value: 25,
+              message: 'Name must be less than 25 characters'
+            }
+          })}
+        />
 
-        <label className='flex flex-col mt-4'>
+        <label className='flex flex-col mt-5'>
           <div className="flex justify-between">
             <span className="capitalize text-xs text-marine-blue lg:text-sm font-medium tracking-wide">
               Email address
@@ -60,26 +65,30 @@ export default function PersonalInfo() {
               {errors.email?.message}
             </span>
           </div>
-          <input type="email"
-            placeholder="e.g. stephenking@lorem.com"
-            className={clsx(
-              'border',
-              errors.email ? 'border-strawberry-red' : 'border-light-gray focus:border-purplish-blue',
-              'py-2 lg:py-3 px-3 lg:px-4 rounded-[4px] lg:rounded-lg mt-1',
-              'text-[15px] lg:text-base text-marine-blue placeholder:text-cool-gray font-medium lg:font-bold',
-              'focus:outline-none'
-            )}
-            {...register("email", {
-              required: 'This field is required',
-              maxLength: {
-                value: 80,
-                message: 'Email must be less than 80 characters',
-              },
-            })}
-          />
         </label>
+        <input type="email"
+          placeholder="e.g. stephenking@lorem.com"
+          className={clsx(
+            'border',
+            errors.email ? 'border-strawberry-red' : 'border-light-gray focus:border-purplish-blue',
+            'py-2 lg:py-3 px-3 lg:px-4 rounded-[4px] lg:rounded-lg mt-1',
+            'text-[15px] lg:text-base text-marine-blue placeholder:text-cool-gray font-medium lg:font-bold',
+            'focus:outline-none'
+          )}
+          {...register("email", {
+            required: 'This field is required',
+            maxLength: {
+              value: 80,
+              message: 'Email must be less than 80 characters',
+            },
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: 'Invalid email address',
+            },
+          })}
+        />
 
-        <label className='flex flex-col mt-4 lg:pb-4'>
+        <label className='flex flex-col mt-5 '>
           <div className="flex justify-between">
             <span className="capitalize text-xs text-marine-blue lg:text-sm font-medium tracking-wide">
               Phone number
@@ -88,30 +97,34 @@ export default function PersonalInfo() {
               {errors.phoneNo?.message}
             </span>
           </div>
-          <input type="tel" id='tel'
-            placeholder="e.g. +1 234 567 890"
-            className={clsx(
-              'border',
-              errors.phoneNo ? 'border-strawberry-red' : 'border-light-gray focus:border-purplish-blue',
-              'py-2 lg:py-3 px-3 lg:px-4 rounded-[4px] lg:rounded-lg mt-1',
-              'text-[15px] lg:text-base text-marine-blue placeholder:text-cool-gray font-medium lg:font-bold',
-              'focus:outline-none'
-            )}
-            {...register("phoneNo", {
-              required: "This field is required",
-              minLength: {
-                value: 10,
-                message: 'Phone number must have at least 10 digits'
-              }
-            })} />
         </label>
+        <input type="tel" id='tel'
+          placeholder="e.g. +1 234 567 890"
+          className={clsx(
+            'border',
+            errors.phoneNo ? 'border-strawberry-red' : 'border-light-gray focus:border-purplish-blue',
+            'py-2 lg:py-3 px-3 lg:px-4 rounded-[4px] lg:rounded-lg mt-1',
+            'text-[15px] lg:text-base text-marine-blue placeholder:text-cool-gray font-medium lg:font-bold',
+            'focus:outline-none'
+          )}
+          {...register("phoneNo", {
+            required: "This field is required",
+            minLength: {
+              value: 10,
+              message: 'Phone number must have at least 10 digits'
+            },
+            pattern: {
+              value: /^[+]?[0-9\s]+$/,
+              message: 'Invalid phone number',
+            },
+          })} />
 
         {/* Link to next page */}
         <Actions>
           <button
             type="submit"
             className="bg-marine-blue hover:opacity-80 transition duration-300 text-magnolia ml-auto px-[17px] lg:px-8 py-[10px] lg:py-3 text-sm lg:text-base rounded-[4px] lg:rounded-lg">
-            Next Step
+            Save
           </button>
         </Actions>
 
