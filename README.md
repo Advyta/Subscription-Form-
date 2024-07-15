@@ -1,6 +1,6 @@
 # Frontend Mentor - Multi-step form solution
 
-This is a solution to the [Multi-step form challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/multistep-form-YVAnSdqQBJ). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is a solution to the [Multi-step form challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/multistep-form-YVAnSdqQBJ).
 
 ## Table of contents
 
@@ -69,7 +69,15 @@ Before you begin, ensure you have the following installed:
     ```
 ### Running the Application
 
-1. Create a .env.local file in the root directory and add your environment variables:
+1. Create a .env.local file in the root directory and add your environment variables. Environment variables consist of 
+- A secret token string
+- A mongodb connection string in the format of 
+  ```
+  mongodb+srv://<USERNAME>:<PASSWORD>@<CLUSTER>.mongodb.net/<DATABASE>?retryWrites=true&w=majority
+  ```
+- Mailtrap username and password which is used to check the email sent to the subscriber
+:
+
     ```env
     TOKEN_SECRET=your_jwt_secret
     MONGO_URI=your_mongodb_connection_string
@@ -103,8 +111,6 @@ The application will be available at http://localhost:3000.
 ### Continued development
 
 I plan to extend this project by:
-- Adding an more robost form validation
-- Using react hot toast to keep the user updated
 - Adding unit tests and integration tests for testing components and API routes to ensure the functionality is as expected.
 - Improve the email sent to the subscriber and include the unsubscribe option in the email itself.
 

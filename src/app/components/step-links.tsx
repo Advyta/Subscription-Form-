@@ -14,7 +14,7 @@ const links = [
 
 export default function StepLinks() {
   const pathname = usePathname();
-  const {personalInfoFilled} = useBilling();
+  const { personalInfoFilled } = useBilling();
   const router = useRouter();
 
   const selectStep = (stepPath: string) => {
@@ -32,7 +32,7 @@ export default function StepLinks() {
           key={link.pageNo}
           // href={link.href}
           onClick={() => selectStep(link.href)}
-          >
+        >
           <div className="flex items-center gap-4 group">
             <div className={clsx(
               'w-[33px] h-[33px] rounded-full border transition-colors duration-300 pt-1 text-center align-middle group-hover:bg-[#bfe2fd80] group-hover:text-marine-blue',
@@ -54,7 +54,7 @@ export default function StepLinks() {
           </div>
         </button>
       ))}
-      <Toaster position="top-right" />
+      <Toaster />
     </div>
   )
 }
